@@ -184,7 +184,7 @@ class ConvolutionalBoxHead(head.Head):
           normalizer_fn=None,
           normalizer_params=None,
           scope='BoxEncodingPredictor')
-    batch_size = features.get_shape().as_list()[0]
+    batch_size = features.shape[0]
     if batch_size is None:
       batch_size = tf.shape(features)[0]
     # Clipping the box encodings to make the inference graph TPU friendly.
@@ -267,7 +267,7 @@ class WeightSharedConvolutionalBoxHead(head.Head):
         activation_fn=None, stride=1, padding='SAME',
         normalizer_fn=None,
         scope='BoxPredictor')
-    batch_size = features.get_shape().as_list()[0]
+    batch_size = features.shape[0]
     if batch_size is None:
       batch_size = tf.shape(features)[0]
     # Clipping the box encodings to make the inference graph TPU friendly.

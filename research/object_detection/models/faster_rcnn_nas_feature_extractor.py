@@ -190,9 +190,9 @@ class FasterRCNNNASFeatureExtractor(
     """
     del scope
 
-    if len(preprocessed_inputs.get_shape().as_list()) != 4:
+    if len(preprocessed_inputs.shape) != 4:
       raise ValueError('`preprocessed_inputs` must be 4 dimensional, got a '
-                       'tensor of shape %s' % preprocessed_inputs.get_shape())
+                       'tensor of shape %s' % preprocessed_inputs.shape)
 
     with slim.arg_scope(nasnet_large_arg_scope_for_detection(
         is_batch_norm_training=self._train_batch_norm)):
@@ -211,8 +211,8 @@ class FasterRCNNNASFeatureExtractor(
 
     # nasnet.py does not maintain the batch size in the first dimension.
     # This work around permits us retaining the batch for below.
-    batch = preprocessed_inputs.get_shape().as_list()[0]
-    shape_without_batch = rpn_feature_map.get_shape().as_list()[1:]
+    batch = preprocessed_inputs.shape[0]
+    shape_without_batch = rpn_feature_map.shape[1:]
     rpn_feature_map_shape = [batch] + shape_without_batch
     rpn_feature_map.set_shape(rpn_feature_map_shape)
 

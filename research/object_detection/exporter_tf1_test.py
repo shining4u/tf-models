@@ -241,7 +241,7 @@ class ExportInferenceGraphTest(tf.test.TestCase):
         signature = meta_graph.signature_def['serving_default']
         input_tensor_name = signature.inputs['inputs'].name
         image_tensor = od_graph.get_tensor_by_name(input_tensor_name)
-        self.assertSequenceEqual(image_tensor.get_shape().as_list(),
+        self.assertSequenceEqual(image_tensor.shape,
                                  input_shape)
 
   def test_export_graph_with_tf_example_input(self):

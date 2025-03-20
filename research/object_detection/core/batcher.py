@@ -85,7 +85,7 @@ class BatchQueue(object):
     """
     # Remember static shapes to set shapes of batched tensors.
     static_shapes = collections.OrderedDict(
-        {key: tensor.get_shape() for key, tensor in tensor_dict.items()})
+        {key: tensor.shape for key, tensor in tensor_dict.items()})
     # Remember runtime shapes to unpad tensors after batching.
     runtime_shapes = collections.OrderedDict(
         {(key + rt_shape_str): tf.shape(tensor)

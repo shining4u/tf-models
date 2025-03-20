@@ -157,7 +157,7 @@ class ConvolutionalMaskHead(head.KerasHead):
     mask_predictions = features
     for layer in self._mask_predictor_layers:
       mask_predictions = layer(mask_predictions)
-    batch_size = features.get_shape().as_list()[0]
+    batch_size = features.shape[0]
     if batch_size is None:
       batch_size = tf.shape(features)[0]
     mask_predictions = tf.reshape(
@@ -437,7 +437,7 @@ class WeightSharedConvolutionalMaskHead(head.KerasHead):
     mask_predictions = features
     for layer in self._mask_predictor_layers:
       mask_predictions = layer(mask_predictions)
-    batch_size = features.get_shape().as_list()[0]
+    batch_size = features.shape[0]
     if batch_size is None:
       batch_size = tf.shape(features)[0]
     mask_predictions = tf.reshape(

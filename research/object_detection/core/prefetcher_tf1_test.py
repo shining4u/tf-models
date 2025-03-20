@@ -51,9 +51,9 @@ class PrefetcherTest(tf.test.TestCase):
                                            capacity=100)
       tensor_dict = prefetch_queue.dequeue()
 
-      self.assertAllEqual(tensor_dict['image'].get_shape().as_list(),
+      self.assertAllEqual(tensor_dict['image'].shape,
                           [batch_size, image_size, image_size, 3])
-      self.assertAllEqual(tensor_dict['label'].get_shape().as_list(),
+      self.assertAllEqual(tensor_dict['label'].shape,
                           [batch_size, 1])
 
       tf.initialize_all_variables().run()
@@ -89,9 +89,9 @@ class PrefetcherTest(tf.test.TestCase):
                                            capacity=100)
       tensor_dict = prefetch_queue.dequeue()
 
-      self.assertAllEqual(tensor_dict['image'].get_shape().as_list(),
+      self.assertAllEqual(tensor_dict['image'].shape,
                           [batch_size, None, None, 3])
-      self.assertAllEqual(tensor_dict['label'].get_shape().as_list(),
+      self.assertAllEqual(tensor_dict['label'].shape,
                           [batch_size, None])
 
       tf.initialize_all_variables().run()

@@ -48,7 +48,7 @@ class BoxListTest(test_case.TestCase):
       data = tf.constant([[0, 0, 1, 1], [1, 1, 2, 3], [3, 4, 5, 5]], tf.float32)
       indices = tf.reshape(tf.where(tf.greater([1, 0, 1], 0)), [-1])
       data = tf.gather(data, indices)
-      assert data.get_shape().as_list() == [None, 4]
+      assert data.shape == [None, 4]
       boxes = box_list.BoxList(data)
       return boxes.num_boxes()
     num_boxes = self.execute(graph_fn, [])

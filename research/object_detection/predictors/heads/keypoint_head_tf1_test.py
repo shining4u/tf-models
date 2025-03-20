@@ -53,7 +53,7 @@ class MaskRCNNKeypointHeadTest(test_case.TestCase):
         [64, 14, 14, 1024], minval=-2.0, maxval=2.0, dtype=tf.float32)
     prediction = keypoint_prediction_head.predict(
         features=roi_pooled_features, num_predictions_per_location=1)
-    self.assertAllEqual([64, 1, 17, 56, 56], prediction.get_shape().as_list())
+    self.assertAllEqual([64, 1, 17, 56, 56], prediction.shape)
 
 
 if __name__ == '__main__':

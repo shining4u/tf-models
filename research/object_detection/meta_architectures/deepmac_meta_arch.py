@@ -536,7 +536,7 @@ def _per_pixel_single_conv(input_tensor, params, channels):
     output: A float tensor of shape [num_instances, height, width, channels]
   """
 
-  input_channels = input_tensor.get_shape().as_list()[3]
+  input_channels = input_tensor.shape[3]
   weights = params[:, :(input_channels * channels)]
   biases = params[:, (input_channels * channels):]
   num_instances = tf.shape(params)[0]
@@ -569,8 +569,8 @@ def per_pixel_conditional_conv(input_tensor, parameters, channels, depth):
       conv applied according to each instance's parameters.
   """
 
-  input_channels = input_tensor.get_shape().as_list()[3]
-  num_params = parameters.get_shape().as_list()[1]
+  input_channels = input_tensor.shape[3]
+  num_params = parameters.shape[1]
 
   input_convs = 1 if depth > 1 else 0
   intermediate_convs = depth - 2 if depth >= 2 else 0
@@ -1379,7 +1379,7 @@ class DeepMACMetaArch(center_net_meta_arch.CenterNetMetaArch):
       per_instance_loss: A [num_instances] float tensor.
     """
 
-    rank = len(loss.get_shape().as_list())
+    rank = len(loss.shape)
     if rank == 2:
       axes = [1]
     else:

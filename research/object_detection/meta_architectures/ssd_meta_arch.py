@@ -891,7 +891,7 @@ class SSDMetaArch(model.DetectionModel):
         # unmatched_class_label as well as their assigned targets.
         # simplest thing (but wasteful) is just to calculate all losses
         # twice
-        batch_size, num_anchors, num_classes = batch_cls_targets.get_shape()
+        batch_size, num_anchors, num_classes = batch_cls_targets.shape
         unmatched_targets = tf.ones([batch_size, num_anchors, 1
                                     ]) * self._unmatched_class_label
 
@@ -901,8 +901,8 @@ class SSDMetaArch(model.DetectionModel):
             weights=batch_cls_weights,
             losses_mask=losses_mask)
 
-        if cls_losses.get_shape().ndims == 3:
-          batch_size, num_anchors, num_classes = cls_losses.get_shape()
+        if cls_losses.shape.ndims == 3:
+          batch_size, num_anchors, num_classes = cls_losses.shape
           cls_losses = tf.reshape(cls_losses, [batch_size, -1])
           unmatched_cls_losses = tf.reshape(unmatched_cls_losses,
                                             [batch_size, -1])
@@ -1224,7 +1224,7 @@ class SSDMetaArch(model.DetectionModel):
     if decoded_boxes.has_field(fields.BoxListFields.keypoints):
       decoded_keypoints = decoded_boxes.get_field(
           fields.BoxListFields.keypoints)
-      num_keypoints = decoded_keypoints.get_shape()[1]
+      num_keypoints = decoded_keypoints.shape[1]
       decoded_keypoints = tf.reshape(
           decoded_keypoints,
           tf.stack([combined_shape[0], combined_shape[1], num_keypoints, 2]))

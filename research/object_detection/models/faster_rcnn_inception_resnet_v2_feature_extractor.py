@@ -94,9 +94,9 @@ class FasterRCNNInceptionResnetV2FeatureExtractor(
         (height or width) is less than 33.
       ValueError: If the created network is missing the required activation.
     """
-    if len(preprocessed_inputs.get_shape().as_list()) != 4:
+    if len(preprocessed_inputs.shape) != 4:
       raise ValueError('`preprocessed_inputs` must be 4 dimensional, got a '
-                       'tensor of shape %s' % preprocessed_inputs.get_shape())
+                       'tensor of shape %s' % preprocessed_inputs.shape)
 
     with slim.arg_scope(inception_resnet_v2.inception_resnet_v2_arg_scope(
         weight_decay=self._weight_decay)):

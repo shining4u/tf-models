@@ -82,7 +82,7 @@ class ModelTest(test_case.TestCase):
     detection_model = FakeModel()
     detection_model(tf.zeros((1, 128, 128, 3)))
 
-    net1_var_shapes = [tuple(var.get_shape().as_list()) for var in
+    net1_var_shapes = [tuple(var.shape) for var in
                        detection_model._network1.trainable_variables]
 
     del detection_model
@@ -91,7 +91,7 @@ class ModelTest(test_case.TestCase):
     detection_model._network2.trainable = False
     detection_model(tf.zeros((1, 128, 128, 3)))
 
-    var_shapes = [tuple(var.get_shape().as_list()) for var in
+    var_shapes = [tuple(var.shape) for var in
                   detection_model._network1.trainable_variables]
 
     self.assertEqual(set(net1_var_shapes), set(var_shapes))

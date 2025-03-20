@@ -142,13 +142,13 @@ def batch_decode(encoded_boxes, box_coder, anchors):
     the number of anchors inferred from encoded_boxes and anchors are
     inconsistent.
   """
-  encoded_boxes.get_shape().assert_has_rank(3)
-  if (shape_utils.get_dim_as_int(encoded_boxes.get_shape()[1])
+  encoded_boxes.shpae.assert_has_rank(3)
+  if (shape_utils.get_dim_as_int(encoded_boxes.shape[1])
       != anchors.num_boxes_static()):
     raise ValueError('The number of anchors inferred from encoded_boxes'
                      ' and anchors are inconsistent: shape[1] of encoded_boxes'
                      ' %s should be equal to the number of anchors: %s.' %
-                     (shape_utils.get_dim_as_int(encoded_boxes.get_shape()[1]),
+                     (shape_utils.get_dim_as_int(encoded_boxes.shape[1]),
                       anchors.num_boxes_static()))
 
   decoded_boxes = tf.stack([

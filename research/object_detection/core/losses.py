@@ -453,7 +453,7 @@ class WeightedSoftmaxClassificationLoss(Loss):
         representing the value of the loss function.
     """
     weights = tf.reduce_mean(weights, axis=2)
-    num_classes = prediction_tensor.get_shape().as_list()[-1]
+    num_classes = prediction_tensor.shape.as_list()[-1]
     prediction_tensor = tf.divide(
         prediction_tensor, self._logit_scale, name='scale_logit')
     per_row_cross_ent = (tf.nn.softmax_cross_entropy_with_logits(
@@ -503,7 +503,7 @@ class WeightedSoftmaxClassificationAgainstLogitsLoss(Loss):
         representing the value of the loss function.
     """
     weights = tf.reduce_mean(weights, axis=2)
-    num_classes = prediction_tensor.get_shape().as_list()[-1]
+    num_classes = prediction_tensor.shape[-1]
     target_tensor = self._scale_and_softmax_logits(target_tensor)
     prediction_tensor = tf.divide(prediction_tensor, self._logit_scale,
                                   name='scale_logits')

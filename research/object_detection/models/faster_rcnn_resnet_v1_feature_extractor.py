@@ -110,9 +110,9 @@ class FasterRCNNResnetV1FeatureExtractor(
         (height or width) is less than 33.
       ValueError: If the created network is missing the required activation.
     """
-    if len(preprocessed_inputs.get_shape().as_list()) != 4:
+    if len(preprocessed_inputs.shape) != 4:
       raise ValueError('`preprocessed_inputs` must be 4 dimensional, got a '
-                       'tensor of shape %s' % preprocessed_inputs.get_shape())
+                       'tensor of shape %s' % preprocessed_inputs.shape)
     shape_assert = tf.Assert(
         tf.logical_and(
             tf.greater_equal(tf.shape(preprocessed_inputs)[1], 33),

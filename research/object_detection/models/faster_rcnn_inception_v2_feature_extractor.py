@@ -117,7 +117,7 @@ class FasterRCNNInceptionV2FeatureExtractor(
       ValueError: If the created network is missing the required activation.
     """
 
-    preprocessed_inputs.get_shape().assert_has_rank(4)
+    preprocessed_inputs.shape.assert_has_rank(4)
     shape_assert = tf.Assert(
         tf.logical_and(tf.greater_equal(tf.shape(preprocessed_inputs)[1], 33),
                        tf.greater_equal(tf.shape(preprocessed_inputs)[2], 33)),

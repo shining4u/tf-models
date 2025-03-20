@@ -58,7 +58,7 @@ class MaskRCNNClassHeadTest(test_case.TestCase):
         [64, 7, 7, 1024], minval=-10.0, maxval=10.0, dtype=tf.float32)
     prediction = class_prediction_head.predict(
         features=roi_pooled_features, num_predictions_per_location=1)
-    self.assertAllEqual([64, 1, 20], prediction.get_shape().as_list())
+    self.assertAllEqual([64, 1, 20], prediction.shape)
 
   def test_scope_name(self):
     expected_var_names = set([
@@ -119,7 +119,7 @@ class ConvolutionalClassPredictorTest(test_case.TestCase):
         features=image_feature,
         num_predictions_per_location=1)
     self.assertAllEqual([64, 323, 20],
-                        class_predictions.get_shape().as_list())
+                        class_predictions.shape)
 
   def test_scope_name(self):
     expected_var_names = set([
@@ -174,7 +174,7 @@ class WeightSharedConvolutionalClassPredictorTest(test_case.TestCase):
     class_predictions = class_prediction_head.predict(
         features=image_feature,
         num_predictions_per_location=1)
-    self.assertAllEqual([64, 323, 20], class_predictions.get_shape().as_list())
+    self.assertAllEqual([64, 323, 20], class_predictions.shape)
 
   def test_scope_name(self):
     expected_var_names = set([

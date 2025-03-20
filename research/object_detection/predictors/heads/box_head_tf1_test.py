@@ -59,7 +59,7 @@ class MaskRCNNBoxHeadTest(test_case.TestCase):
         [64, 7, 7, 1024], minval=-10.0, maxval=10.0, dtype=tf.float32)
     prediction = box_prediction_head.predict(
         features=roi_pooled_features, num_predictions_per_location=1)
-    self.assertAllEqual([64, 1, 20, 4], prediction.get_shape().as_list())
+    self.assertAllEqual([64, 1, 20, 4], prediction.shape)
 
 
 @unittest.skipIf(tf_version.is_tf2(), 'Skipping TF1.X only test.')
@@ -93,7 +93,7 @@ class ConvolutionalBoxPredictorTest(test_case.TestCase):
     box_encodings = box_prediction_head.predict(
         features=image_feature,
         num_predictions_per_location=1)
-    self.assertAllEqual([64, 323, 1, 4], box_encodings.get_shape().as_list())
+    self.assertAllEqual([64, 323, 1, 4], box_encodings.shape)
 
 
 @unittest.skipIf(tf_version.is_tf2(), 'Skipping TF1.X only test.')
@@ -125,7 +125,7 @@ class WeightSharedConvolutionalBoxPredictorTest(test_case.TestCase):
     box_encodings = box_prediction_head.predict(
         features=image_feature,
         num_predictions_per_location=1)
-    self.assertAllEqual([64, 323, 4], box_encodings.get_shape().as_list())
+    self.assertAllEqual([64, 323, 4], box_encodings.shape)
 
 
 if __name__ == '__main__':

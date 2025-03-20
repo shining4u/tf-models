@@ -66,8 +66,8 @@ class UtilTest(test_case.TestCase):
       t2 = tf.constant([[0.1, 0.2], [0.2, 0.4], [0.5, 0.8]], dtype=tf.float32)
       clip_t2 = shape_utils.clip_tensor(t2, 2)
 
-      self.assertEqual(2, clip_t1.get_shape()[0])
-      self.assertEqual(2, clip_t2.get_shape()[0])
+      self.assertEqual(2, clip_t1.shape[0])
+      self.assertEqual(2, clip_t2.shape[0])
 
       return clip_t1, clip_t2
 
@@ -102,10 +102,10 @@ class UtilTest(test_case.TestCase):
       t4 = tf.constant([[0.1, 0.2], [0.2, 0.4], [0.5, 0.8]], dtype=tf.float32)
       tt4 = shape_utils.clip_tensor(t4, 2)
 
-      self.assertEqual(2, tt1.get_shape()[0])
-      self.assertEqual(2, tt2.get_shape()[0])
-      self.assertEqual(2, tt3.get_shape()[0])
-      self.assertEqual(2, tt4.get_shape()[0])
+      self.assertEqual(2, tt1.shape[0])
+      self.assertEqual(2, tt2.shape[0])
+      self.assertEqual(2, tt3.shape[0])
+      self.assertEqual(2, tt4.shape[0])
 
       return tt1, tt2, tt3, tt4
 

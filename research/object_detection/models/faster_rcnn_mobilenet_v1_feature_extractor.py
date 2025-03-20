@@ -126,7 +126,7 @@ class FasterRCNNMobilenetV1FeatureExtractor(
       ValueError: If the created network is missing the required activation.
     """
 
-    preprocessed_inputs.get_shape().assert_has_rank(4)
+    preprocessed_inputs.shape.assert_has_rank(4)
     preprocessed_inputs = shape_utils.check_min_image_dim(
         min_dim=33, image_tensor=preprocessed_inputs)
 

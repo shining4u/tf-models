@@ -3443,7 +3443,7 @@ class PreprocessorTest(test_case.TestCase, parameterized.TestCase):
       in_image = tf.random_uniform(in_shape)
       out_image, _ = preprocessor.resize_to_range(
           in_image, min_dimension=min_dim, max_dimension=max_dim)
-      self.assertAllEqual(out_image.get_shape().as_list(), expected_shape)
+      self.assertAllEqual(out_image.shape, expected_shape)
 
   def testResizeToRangeWithDynamicSpatialShape(self):
     """Tests image resizing, checking output sizes."""
@@ -3515,8 +3515,8 @@ class PreprocessorTest(test_case.TestCase, parameterized.TestCase):
       in_masks = tf.random_uniform(in_masks_shape)
       out_image, out_masks, _ = preprocessor.resize_to_range(
           in_image, in_masks, min_dimension=min_dim, max_dimension=max_dim)
-      self.assertAllEqual(out_masks.get_shape().as_list(), expected_mask_shape)
-      self.assertAllEqual(out_image.get_shape().as_list(), expected_image_shape)
+      self.assertAllEqual(out_masks.shape, expected_mask_shape)
+      self.assertAllEqual(out_image.shape, expected_image_shape)
 
   def testResizeToRangeWithMasksAndPadToMaxDimension(self):
     """Tests image resizing, checking output sizes."""

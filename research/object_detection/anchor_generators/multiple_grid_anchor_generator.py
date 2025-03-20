@@ -99,7 +99,7 @@ class MultipleGridAnchorGenerator(anchor_generator.AnchorGenerator):
     self._base_anchor_size = base_anchor_size
     self._anchor_strides = anchor_strides
     self._anchor_offsets = anchor_offsets
-    if clip_window is not None and clip_window.get_shape().as_list() != [4]:
+    if clip_window is not None and clip_window.shape != [4]:
       raise ValueError('clip_window must either be None or a shape [4] tensor')
     self._clip_window = clip_window
     self._scales = []

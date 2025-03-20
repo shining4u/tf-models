@@ -1106,7 +1106,7 @@ class FasterRCNNMetaArchTestBase(test_case.TestCase, parameterized.TestCase):
            [16, 0, 32, 16],
            [16, 16, 32, 32]], dtype=tf.float32)
       rpn_box_encodings = tf.zeros(
-          [batch_size, anchors.get_shape().as_list()[0],
+          [batch_size, anchors.shape[0],
            BOX_CODE_SIZE], dtype=tf.float32)
       # use different numbers for the objectness category to break ties in
       # order of boxes returned by NMS
@@ -1351,7 +1351,7 @@ class FasterRCNNMetaArchTestBase(test_case.TestCase, parameterized.TestCase):
 
       rpn_box_encodings = tf.zeros(
           [batch_size,
-           anchors.get_shape().as_list()[0],
+           anchors.shape[0],
            BOX_CODE_SIZE], dtype=tf.float32)
       # use different numbers for the objectness category to break ties in
       # order of boxes returned by NMS
@@ -1411,7 +1411,7 @@ class FasterRCNNMetaArchTestBase(test_case.TestCase, parameterized.TestCase):
            [16, 16, 32, 32]], dtype=tf.float32)
       rpn_box_encodings = tf.zeros(
           [batch_size,
-           anchors.get_shape().as_list()[0],
+           anchors.shape[0],
            BOX_CODE_SIZE], dtype=tf.float32)
       # use different numbers for the objectness category to break ties in
       # order of boxes returned by NMS
@@ -1532,7 +1532,7 @@ class FasterRCNNMetaArchTestBase(test_case.TestCase, parameterized.TestCase):
            [16, 16, 32, 32]], dtype=tf.float32)
       rpn_box_encodings = tf.zeros(
           [batch_size,
-           anchors.get_shape().as_list()[0],
+           anchors.shape[0],
            BOX_CODE_SIZE], dtype=tf.float32)
       # use different numbers for the objectness category to break ties in
       # order of boxes returned by NMS
@@ -1630,7 +1630,7 @@ class FasterRCNNMetaArchTestBase(test_case.TestCase, parameterized.TestCase):
            [16, 16, 32, 32]], dtype=tf.float32)
       rpn_box_encodings = tf.zeros(
           [batch_size,
-           anchors.get_shape().as_list()[0],
+           anchors.shape[0],
            BOX_CODE_SIZE], dtype=tf.float32)
       # use different numbers for the objectness category to break ties in
       # order of boxes returned by NMS
@@ -1872,7 +1872,7 @@ class FasterRCNNMetaArchTestBase(test_case.TestCase, parameterized.TestCase):
            [16, 16, 32, 32]], dtype=tf.float32)
       rpn_box_encodings = tf.zeros(
           [batch_size,
-           anchors.get_shape().as_list()[0],
+           anchors.shape[0],
            BOX_CODE_SIZE], dtype=tf.float32)
       # use different numbers for the objectness category to break ties in
       # order of boxes returned by NMS
@@ -1964,7 +1964,7 @@ class FasterRCNNMetaArchTestBase(test_case.TestCase, parameterized.TestCase):
            [16, 16, 32, 32]], dtype=tf.float32)
       rpn_box_encodings = tf.zeros(
           [batch_size,
-           anchors.get_shape().as_list()[0],
+           anchors.shape[0],
            BOX_CODE_SIZE], dtype=tf.float32)
       # use different numbers for the objectness category to break ties in
       # order of boxes returned by NMS

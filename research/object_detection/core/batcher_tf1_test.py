@@ -50,7 +50,7 @@ class BatcherTest(tf.test.TestCase):
 
       for tensor_dict in batch:
         for tensor in tensor_dict.values():
-          self.assertAllEqual([None, 4], tensor.get_shape().as_list())
+          self.assertAllEqual([None, 4], tensor.shape)
 
       tf.initialize_all_variables().run()
       with slim.queues.QueueRunners(sess):
@@ -83,7 +83,7 @@ class BatcherTest(tf.test.TestCase):
 
       for tensor_dict in batch:
         for tensor in tensor_dict.values():
-          self.assertAllEqual([None, None], tensor.get_shape().as_list())
+          self.assertAllEqual([None, None], tensor.shape)
 
       tf.initialize_all_variables().run()
       with slim.queues.QueueRunners(sess):
@@ -114,7 +114,7 @@ class BatcherTest(tf.test.TestCase):
 
       for tensor_dict in batch:
         for tensor in tensor_dict.values():
-          self.assertAllEqual([4, 3], tensor.get_shape().as_list())
+          self.assertAllEqual([4, 3], tensor.shape)
 
       tf.initialize_all_variables().run()
       with slim.queues.QueueRunners(sess):
@@ -146,7 +146,7 @@ class BatcherTest(tf.test.TestCase):
 
       for tensor_dict in batch:
         for tensor in tensor_dict.values():
-          self.assertAllEqual([None, None], tensor.get_shape().as_list())
+          self.assertAllEqual([None, None], tensor.shape)
 
       tf.initialize_all_variables().run()
       with slim.queues.QueueRunners(sess):

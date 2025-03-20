@@ -87,8 +87,8 @@ class MeshgridTest(test_case.TestCase):
 
     def graph_fn():
       xgrid, ygrid = ops.meshgrid(x, y)
-      self.assertEqual(xgrid.get_shape().as_list(), grid_shape)
-      self.assertEqual(ygrid.get_shape().as_list(), grid_shape)
+      self.assertEqual(xgrid.shape, grid_shape)
+      self.assertEqual(ygrid.shape, grid_shape)
       return xgrid, ygrid
 
     xgrid_output, ygrid_output = self.execute(graph_fn, [])

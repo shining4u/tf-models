@@ -324,10 +324,10 @@ def multilevel_roi_align(features, boxes, box_levels, output_size,
   with tf.name_scope(scope, 'MultiLevelRoIAlign'):
     features, true_feature_shapes = pad_to_max_size(features)
     batch_size = shape_utils.combined_static_and_dynamic_shape(features)[0]
-    num_levels = features.get_shape().as_list()[1]
+    num_levels = features.shape[1]
     max_feature_height = tf.shape(features)[2]
     max_feature_width = tf.shape(features)[3]
-    num_filters = features.get_shape().as_list()[4]
+    num_filters = features.shape[4]
     num_boxes = tf.shape(boxes)[1]
 
     # Convert boxes to absolute co-ordinates.

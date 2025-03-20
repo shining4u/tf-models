@@ -52,7 +52,7 @@ class BoxList(object):
       ValueError: if invalid dimensions for bbox data or if bbox data is not in
           float32 format.
     """
-    if len(boxes.get_shape()) != 2 or boxes.get_shape()[-1] != 4:
+    if len(boxes.shape) != 2 or boxes.shape[-1] != 4:
       raise ValueError('Invalid dimensions for box data: {}'.format(
           boxes.shape))
     if boxes.dtype != tf.float32:
@@ -76,7 +76,7 @@ class BoxList(object):
       Number of boxes held in collection (integer) or None if this is not
         inferrable at graph construction time.
     """
-    return shape_utils.get_dim_as_int(self.data['boxes'].get_shape()[0])
+    return shape_utils.get_dim_as_int(self.data['boxes'].shape[0])
 
   def get_all_fields(self):
     """Returns all fields."""
@@ -118,7 +118,7 @@ class BoxList(object):
     Raises:
       ValueError: if invalid dimensions for bbox data
     """
-    if len(boxes.get_shape()) != 2 or boxes.get_shape()[-1] != 4:
+    if len(boxes.shape) != 2 or boxes.shape[-1] != 4:
       raise ValueError('Invalid dimensions for box data.')
     self.data['boxes'] = boxes
 

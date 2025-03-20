@@ -246,7 +246,7 @@ def _rgb_to_grayscale(images, name=None):
     rank_1 = tf.expand_dims(tf.rank(images) - 1, 0)
     gray_float = tf.reduce_sum(
         flt_image * rgb_weights, rank_1, keep_dims=True)
-    gray_float.set_shape(images.get_shape()[:-1].concatenate([1]))
+    gray_float.set_shape(images.shape[:-1].concatenate([1]))
     return tf.image.convert_image_dtype(gray_float, orig_dtype, name=name)
 
 
@@ -1553,7 +1553,7 @@ def _strict_random_crop_image(image,
     im_box_end = im_box_begin + im_box_size
     new_image = image[im_box_begin[0]:im_box_end[0],
                       im_box_begin[1]:im_box_end[1], :]
-    new_image.set_shape([None, None, image.get_shape()[2]])
+    new_image.set_shape([None, None, image.shape[2]])
 
     # [1, 4]
     im_box_rank2 = tf.squeeze(im_box, axis=[0])
@@ -2296,7 +2296,7 @@ def random_crop_to_aspect_ratio(image,
   Raises:
     ValueError: If image is not a 3D tensor.
   """
-  if len(image.get_shape()) != 3:
+  if len(image.shape) != 3:
     raise ValueError('Image should be 3D tensor')
 
   with tf.name_scope('RandomCropToAspectRatio', values=[image]):
@@ -2471,7 +2471,7 @@ def random_pad_to_aspect_ratio(image,
   Raises:
     ValueError: If image is not a 3D tensor.
   """
-  if len(image.get_shape()) != 3:
+  if len(image.shape) != 3:
     raise ValueError('Image should be 3D tensor')
 
   with tf.name_scope('RandomPadToAspectRatio', values=[image]):
@@ -3031,7 +3031,7 @@ def resize_to_range(image,
   Raises:
     ValueError: if the image is not a 3D tensor.
   """
-  if len(image.get_shape()) != 3:
+  if len(image.shape) != 3:
     raise ValueError('Image should be 3D tensor')
 
   def _resize_landscape_image(image):
@@ -3047,12 +3047,12 @@ def resize_to_range(image,
         align_corners=align_corners, preserve_aspect_ratio=True)
 
   with tf.name_scope('ResizeToRange', values=[image, min_dimension]):
-    if image.get_shape().is_fully_defined():
-      if image.get_shape()[0] < image.get_shape()[1]:
+    if image.shape.is_fully_defined():
+      if image.shape[0] < image.shape[1]:
         new_image = _resize_landscape_image(image)
       else:
         new_image = _resize_portrait_image(image)
-      new_size = tf.constant(new_image.get_shape().as_list())
+      new_size = tf.constant(new_image.shape)
     else:
       new_image = tf.cond(
           tf.less(tf.shape(image)[0], tf.shape(image)[1]),
@@ -3131,7 +3131,7 @@ def resize_to_min_dimension(image, masks=None, min_dimension=600,
   Raises:
     ValueError: if the image is not a 3D tensor.
   """
-  if len(image.get_shape()) != 3:
+  if len(image.shape) != 3:
     raise ValueError('Image should be 3D tensor')
 
   with tf.name_scope('ResizeGivenMinDimension', values=[image, min_dimension]):
@@ -3189,7 +3189,7 @@ def resize_to_max_dimension(image, masks=None, max_dimension=600,
   Raises:
     ValueError: if the image is not a 3D tensor.
   """
-  if len(image.get_shape()) != 3:
+  if len(image.shape) != 3:
     raise ValueError('Image should be 3D tensor')
 
   with tf.name_scope('ResizeGivenMaxDimension', values=[image, max_dimension]):
@@ -3241,7 +3241,7 @@ def resize_pad_to_multiple(image, masks=None, multiple=1):
 
   """
 
-  if len(image.get_shape()) != 3:
+  if len(image.shape) != 3:
     raise ValueError('Image should be 3D tensor')
 
   with tf.name_scope('ResizePadToMultiple', values=[image, multiple]):
@@ -3372,9 +3372,9 @@ def subtract_channel_mean(image, means=None):
       equal to the number of channels.
   """
   with tf.name_scope('SubtractChannelMean', values=[image, means]):
-    if len(image.get_shape()) != 3:
+    if len(image.shape) != 3:
       raise ValueError('Input must be of size [height, width, channels]')
-    if len(means) != image.get_shape()[-1]:
+    if len(means) != image.shape[-1]:
       raise ValueError('len(means) must match the number of channels')
     return image - [[means]]
 
@@ -4719,7 +4719,7 @@ def preprocess(tensor_dict,
   # receive rank 3 tensor for image
   if fields.InputDataFields.image in tensor_dict:
     images = tensor_dict[fields.InputDataFields.image]
-    if len(images.get_shape()) != 4:
+    if len(images.shape) != 4:
       raise ValueError('images in tensor_dict should be rank 4')
     image = tf.squeeze(images, axis=0)
     tensor_dict[fields.InputDataFields.image] = image

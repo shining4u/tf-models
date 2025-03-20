@@ -694,8 +694,8 @@ def _apply_multi_bbox_augmentation(image, bboxes, prob, aug_func,
 
   _, (image, new_bboxes) = tf.while_loop(
       cond, body, [idx, (image, new_bboxes)],
-      shape_invariants=[idx.get_shape(),
-                        (image.get_shape(), tf.TensorShape([None, 4]))])
+      shape_invariants=[idx.shape,
+                        (image.shape, tf.TensorShape([None, 4]))])
 
   # Either return the altered bboxes or the original ones depending on if
   # we altered them in anyway.

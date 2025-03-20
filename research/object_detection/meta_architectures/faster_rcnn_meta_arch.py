@@ -1258,8 +1258,8 @@ class FasterRCNNMetaArch(model.DetectionModel):
           box_predictor.MASK_PREDICTIONS], axis=1)
 
       _, num_classes, mask_height, mask_width = (
-          detection_masks.get_shape().as_list())
-      _, max_detection = detection_classes.get_shape().as_list()
+          detection_masks.shape)
+      _, max_detection = detection_classes.shape
       prediction_dict['mask_predictions'] = tf.reshape(
           detection_masks, [-1, num_classes, mask_height, mask_width])
       if num_classes > 1:
@@ -1284,7 +1284,7 @@ class FasterRCNNMetaArch(model.DetectionModel):
     Returns:
       masks: a 3-D float32 tensor with shape [K, mask_height, mask_width].
     """
-    _, num_classes, height, width = instance_masks.get_shape().as_list()
+    _, num_classes, height, width = instance_masks.shape
     k = tf.shape(instance_masks)[0]
     instance_masks = tf.reshape(instance_masks, [-1, height, width])
     classes = tf.cast(tf.reshape(classes, [-1]), dtype=tf.int32)
@@ -2490,7 +2490,7 @@ class FasterRCNNMetaArch(model.DetectionModel):
           flat_cls_targets_with_background, axis=1)
       one_hot_flat_cls_targets_with_background = tf.one_hot(
           one_hot_flat_cls_targets_with_background,
-          flat_cls_targets_with_background.get_shape()[1])
+          flat_cls_targets_with_background.shape[1])
 
       # If using a shared box across classes use directly
       if refined_box_encodings.shape[1] == 1:
@@ -2572,7 +2572,7 @@ class FasterRCNNMetaArch(model.DetectionModel):
 
         # Pad the prediction_masks with to add zeros for background class to be
         # consistent with class predictions.
-        if prediction_masks.get_shape().as_list()[1] == 1:
+        if prediction_masks.shape[1] == 1:
           # Class agnostic masks or masks for one-class prediction. Logic for
           # both cases is the same since background predictions are ignored
           # through the batch_mask_target_weights.
@@ -2688,7 +2688,7 @@ class FasterRCNNMetaArch(model.DetectionModel):
         flat_cls_targets_with_background, axis=1)
     one_hot_flat_cls_targets_with_background = tf.one_hot(
         one_hot_flat_cls_targets_with_background,
-        flat_cls_targets_with_background.get_shape()[1])
+        flat_cls_targets_with_background.shape[1])
     return (proposal_boxes, proposal_boxlists, paddings_indicator,
             one_hot_flat_cls_targets_with_background)
 

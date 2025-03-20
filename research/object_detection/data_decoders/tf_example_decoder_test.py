@@ -98,11 +98,11 @@ class TfExampleDecoderTest(test_case.TestCase):
       example_decoder = tf_example_decoder.TfExampleDecoder()
       output = example_decoder.decode(tf.convert_to_tensor(example))
       self.assertAllEqual(
-          (output[fields.InputDataFields.image].get_shape().as_list()),
+          (output[fields.InputDataFields.image].shape,
           [None, None, 3])
       self.assertAllEqual(
           (output[fields.InputDataFields.original_image_spatial_shape]
-           .get_shape().as_list()), [2])
+           .shape), [2])
       return output
 
     tensor_dict = self.execute_cpu(graph_fn, [])
@@ -156,11 +156,11 @@ class TfExampleDecoderTest(test_case.TestCase):
       example_decoder = tf_example_decoder.TfExampleDecoder()
       output = example_decoder.decode(tf.convert_to_tensor(example))
       self.assertAllEqual(
-          (output[fields.InputDataFields.image].get_shape().as_list()),
+          (output[fields.InputDataFields.image].shape),
           [None, None, 3])
       self.assertAllEqual(
           (output[fields.InputDataFields.original_image_spatial_shape]
-           .get_shape().as_list()), [2])
+           .shape), [2])
       return output
 
     tensor_dict = self.execute_cpu(graph_fn, [])
@@ -265,7 +265,7 @@ class TfExampleDecoderTest(test_case.TestCase):
       example_decoder = tf_example_decoder.TfExampleDecoder()
       output = example_decoder.decode(tf.convert_to_tensor(example))
       self.assertAllEqual((output[
-          fields.InputDataFields.groundtruth_boxes].get_shape().as_list()),
+          fields.InputDataFields.groundtruth_boxes].shape),
                           [None, 4])
       return output
 
@@ -326,7 +326,7 @@ class TfExampleDecoderTest(test_case.TestCase):
           ).as_list()), [2, 3])
       self.assertAllEqual(
           (output[fields.InputDataFields.groundtruth_keypoint_depth_weights]
-           .get_shape().as_list()), [2, 3])
+           .shape), [2, 3])
       return output
 
     tensor_dict = self.execute_cpu(graph_fn, [])
@@ -433,10 +433,10 @@ class TfExampleDecoderTest(test_case.TestCase):
       output = example_decoder.decode(tf.convert_to_tensor(example))
 
       self.assertAllEqual((output[
-          fields.InputDataFields.groundtruth_boxes].get_shape().as_list()),
+          fields.InputDataFields.groundtruth_boxes].shape),
                           [None, 4])
       self.assertAllEqual((output[
-          fields.InputDataFields.groundtruth_keypoints].get_shape().as_list()),
+          fields.InputDataFields.groundtruth_keypoints].shape),
                           [2, 3, 2])
       return output
 
@@ -499,10 +499,10 @@ class TfExampleDecoderTest(test_case.TestCase):
       output = example_decoder.decode(tf.convert_to_tensor(example))
 
       self.assertAllEqual((output[
-          fields.InputDataFields.groundtruth_boxes].get_shape().as_list()),
+          fields.InputDataFields.groundtruth_boxes].shape),
                           [None, 4])
       self.assertAllEqual((output[
-          fields.InputDataFields.groundtruth_keypoints].get_shape().as_list()),
+          fields.InputDataFields.groundtruth_keypoints].shape),
                           [0, 3, 2])
       return output
 
@@ -592,10 +592,10 @@ class TfExampleDecoderTest(test_case.TestCase):
       output = example_decoder.decode(tf.convert_to_tensor(example))
 
       self.assertAllEqual((output[
-          fields.InputDataFields.groundtruth_boxes].get_shape().as_list()),
+          fields.InputDataFields.groundtruth_boxes].shape),
                           [None, 4])
       self.assertAllEqual((output[
-          fields.InputDataFields.groundtruth_keypoints].get_shape().as_list()),
+          fields.InputDataFields.groundtruth_keypoints].shape),
                           [None, 5, 2])
       return output
 
@@ -703,10 +703,10 @@ class TfExampleDecoderTest(test_case.TestCase):
       output = example_decoder.decode(tf.convert_to_tensor(example))
 
       self.assertAllEqual((output[
-          fields.InputDataFields.groundtruth_boxes].get_shape().as_list()),
+          fields.InputDataFields.groundtruth_boxes].shape),
                           [None, 4])
       self.assertAllEqual((output[
-          fields.InputDataFields.groundtruth_keypoints].get_shape().as_list()),
+          fields.InputDataFields.groundtruth_keypoints].shape),
                           [None, 5, 2])
       return output
 
@@ -767,10 +767,10 @@ class TfExampleDecoderTest(test_case.TestCase):
       output = example_decoder.decode(tf.convert_to_tensor(example))
 
       self.assertAllEqual((output[
-          fields.InputDataFields.groundtruth_boxes].get_shape().as_list()),
+          fields.InputDataFields.groundtruth_boxes].shape),
                           [None, 4])
       self.assertAllEqual((output[
-          fields.InputDataFields.groundtruth_keypoints].get_shape().as_list()),
+          fields.InputDataFields.groundtruth_keypoints].shape),
                           [2, 3, 2])
       return output
 
@@ -822,7 +822,7 @@ class TfExampleDecoderTest(test_case.TestCase):
       output = example_decoder.decode(tf.convert_to_tensor(example))
 
       self.assertAllEqual((output[
-          fields.InputDataFields.groundtruth_boxes].get_shape().as_list()),
+          fields.InputDataFields.groundtruth_boxes].shape),
                           [None, 4])
       return output
 
@@ -852,7 +852,7 @@ class TfExampleDecoderTest(test_case.TestCase):
       output = example_decoder.decode(tf.convert_to_tensor(example))
 
       self.assertAllEqual((output[
-          fields.InputDataFields.groundtruth_classes].get_shape().as_list()),
+          fields.InputDataFields.groundtruth_classes].shape),
                           [2])
       return output
 
@@ -971,7 +971,7 @@ class TfExampleDecoderTest(test_case.TestCase):
       output = example_decoder.decode(tf.convert_to_tensor(example))
 
       self.assertAllEqual((output[
-          fields.InputDataFields.groundtruth_classes].get_shape().as_list()),
+          fields.InputDataFields.groundtruth_classes].shape),
                           [None])
       return output
 
@@ -1072,7 +1072,7 @@ class TfExampleDecoderTest(test_case.TestCase):
           label_map_proto_file=label_map_path)
       output = example_decoder.decode(tf.convert_to_tensor(example))
       self.assertAllEqual((output[
-          fields.InputDataFields.groundtruth_classes].get_shape().as_list()),
+          fields.InputDataFields.groundtruth_classes].shape),
                           [None])
       return output
 
@@ -1116,7 +1116,7 @@ class TfExampleDecoderTest(test_case.TestCase):
       output = example_decoder.decode(tf.convert_to_tensor(example))
 
       self.assertAllEqual((output[
-          fields.InputDataFields.groundtruth_classes].get_shape().as_list()),
+          fields.InputDataFields.groundtruth_classes].shape),
                           [None])
       return output
 
@@ -1204,7 +1204,7 @@ class TfExampleDecoderTest(test_case.TestCase):
       output = example_decoder.decode(tf.convert_to_tensor(example))
 
       self.assertAllEqual((output[
-          fields.InputDataFields.groundtruth_classes].get_shape().as_list()),
+          fields.InputDataFields.groundtruth_classes].shape),
                           [None])
       return output
 
@@ -1234,7 +1234,7 @@ class TfExampleDecoderTest(test_case.TestCase):
       output = example_decoder.decode(tf.convert_to_tensor(example))
 
       self.assertAllEqual((output[
-          fields.InputDataFields.groundtruth_area].get_shape().as_list()), [2])
+          fields.InputDataFields.groundtruth_area].shape), [2])
       return output
 
     tensor_dict = self.execute_cpu(graph_fn, [])
@@ -1319,7 +1319,7 @@ class TfExampleDecoderTest(test_case.TestCase):
       output = example_decoder.decode(tf.convert_to_tensor(example))
 
       self.assertAllEqual((output[
-          fields.InputDataFields.groundtruth_is_crowd].get_shape().as_list()),
+          fields.InputDataFields.groundtruth_is_crowd].shape),
                           [2])
       return output
 
@@ -1350,7 +1350,7 @@ class TfExampleDecoderTest(test_case.TestCase):
       output = example_decoder.decode(tf.convert_to_tensor(example))
 
       self.assertAllEqual((output[
-          fields.InputDataFields.groundtruth_difficult].get_shape().as_list()),
+          fields.InputDataFields.groundtruth_difficult].shape),
                           [2])
       return output
 
@@ -1381,7 +1381,7 @@ class TfExampleDecoderTest(test_case.TestCase):
       output = example_decoder.decode(tf.convert_to_tensor(example))
 
       self.assertAllEqual((output[
-          fields.InputDataFields.groundtruth_group_of].get_shape().as_list()),
+          fields.InputDataFields.groundtruth_group_of].shape),
                           [2])
       return output
 
@@ -1412,7 +1412,7 @@ class TfExampleDecoderTest(test_case.TestCase):
       output = example_decoder.decode(tf.convert_to_tensor(example))
 
       self.assertAllEqual((output[
-          fields.InputDataFields.groundtruth_weights].get_shape().as_list()),
+          fields.InputDataFields.groundtruth_weights].shape),
                           [None])
       return output
 
@@ -1444,7 +1444,7 @@ class TfExampleDecoderTest(test_case.TestCase):
 
       self.assertAllEqual(
           (output[fields.InputDataFields.groundtruth_image_confidences]
-           .get_shape().as_list()), [3])
+           .shape), [3])
       return output
 
     tensor_dict = self.execute_cpu(graph_fn, [])
@@ -1499,7 +1499,7 @@ class TfExampleDecoderTest(test_case.TestCase):
           ).as_list()), [4, 5, 3])
 
       self.assertAllEqual((output[
-          fields.InputDataFields.groundtruth_classes].get_shape().as_list()),
+          fields.InputDataFields.groundtruth_classes].shape),
                           [4])
       return output
 
@@ -1611,7 +1611,7 @@ class TfExampleDecoderTest(test_case.TestCase):
           [1, 1, 0, 1])
 
       self.assertAllEqual((output[
-          fields.InputDataFields.groundtruth_classes].get_shape().as_list()),
+          fields.InputDataFields.groundtruth_classes].shape),
                           [4])
       return output
 

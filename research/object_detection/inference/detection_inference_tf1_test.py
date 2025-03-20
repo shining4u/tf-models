@@ -84,7 +84,7 @@ class InferDetectionsTests(tf.test.TestCase):
 
     serialized_example_tensor, image_tensor = detection_inference.build_input(
         [get_mock_tfrecord_path()])
-    self.assertAllEqual(image_tensor.get_shape().as_list(), [1, None, None, 3])
+    self.assertAllEqual(image_tensor.shape, [1, None, None, 3])
 
     (detected_boxes_tensor, detected_scores_tensor,
      detected_labels_tensor) = detection_inference.build_inference_graph(

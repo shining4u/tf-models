@@ -516,7 +516,7 @@ def multiclass_non_max_suppression(boxes,
   with tf.name_scope(scope, 'MultiClassNonMaxSuppression'), tf.device(
       'cpu:0') if use_cpu_nms else NullContextmanager():
     num_scores = tf.shape(scores)[0]
-    num_classes = shape_utils.get_dim_as_int(scores.get_shape()[1])
+    num_classes = shape_utils.get_dim_as_int(scores.shape[1])
 
     selected_boxes_list = []
     num_valid_nms_boxes_cumulative = tf.constant(0)
@@ -1170,7 +1170,7 @@ def batch_multiclass_non_max_suppression(boxes,
              shape_utils.get_dim_as_int(per_image_masks.shape[3])])
         if per_image_additional_fields is not None:
           for key, tensor in per_image_additional_fields.items():
-            additional_field_shape = tensor.get_shape()
+            additional_field_shape = tensor.shape
             additional_field_dim = len(additional_field_shape)
             per_image_additional_fields[key] = tf.reshape(
                 tf.slice(

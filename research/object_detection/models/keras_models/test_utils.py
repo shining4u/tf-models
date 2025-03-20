@@ -51,7 +51,7 @@
 #         inputs, final_endpoint='Conv2d_13_pointwise',
 #         depth_multiplier=depth_multiplier, min_depth=min_depth,
 #         use_explicit_padding=use_explicit_padding)
-#     return [end_points[endpoint_name].get_shape()
+#     return [end_points[endpoint_name].shape
 #             for endpoint_name in _MOBLIENET_V1_SLIM_ENDPOINTS]
 
 

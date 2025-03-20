@@ -149,7 +149,7 @@ class ConvolutionalBoxPredictor(box_predictor.BoxPredictor):
         with slim.arg_scope(self._conv_hyperparams_fn()):
           with slim.arg_scope([slim.dropout], is_training=self._is_training):
             # Add additional conv layers before the class predictor.
-            features_depth = static_shape.get_depth(image_feature.get_shape())
+            features_depth = static_shape.get_depth(image_feature.shape)
             depth = max(min(features_depth, self._max_depth), self._min_depth)
             tf.logging.info('depth of additional conv before box predictor: {}'.
                             format(depth))

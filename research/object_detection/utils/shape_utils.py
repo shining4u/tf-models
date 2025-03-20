@@ -50,7 +50,7 @@ def _set_dim_0(t, d0):
   Returns:
     the tensor t with the 0-th dimension set.
   """
-  t_shape = t.get_shape().as_list()
+  t_shape = t.shape
   t_shape[0] = d0
   t.set_shape(t_shape)
   return t
@@ -71,11 +71,11 @@ def pad_tensor(t, length):
   """
 
   # Computing the padding statically makes the operation work with XLA.
-  rank = len(t.get_shape())
+  rank = len(t.shape)
   paddings = [[0 for _ in range(2)] for _ in range(rank)]
   t_d0 = tf.shape(t)[0]
 
-  if isinstance(length, int) or len(length.get_shape()) == 0:  # pylint:disable=g-explicit-length-test
+  if isinstance(length, int) or len(length.shape) == 0:  # pylint:disable=g-explicit-length-test
     paddings[0][1] = length - t_d0
   else:
     paddings[0][1] = length[0] - t_d0
@@ -276,7 +276,7 @@ def check_min_image_dim(min_dim, image_tensor):
   Raises:
     ValueError: if `image_tensor`'s' width or height is smaller than `min_dim`.
   """
-  image_shape = image_tensor.get_shape()
+  image_shape = image_tensor.shape
   image_height = static_shape.get_height(image_shape)
   image_width = static_shape.get_width(image_shape)
   if image_height is None or image_width is None:

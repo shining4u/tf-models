@@ -899,7 +899,7 @@ def eager_eval_loop(
     # For evaling on train data, it is necessary to check whether groundtruth
     # must be unpadded.
     boxes_shape = (
-        labels[fields.InputDataFields.groundtruth_boxes].get_shape().as_list())
+        labels[fields.InputDataFields.groundtruth_boxes].shape)
     unpad_groundtruth_tensors = (boxes_shape[1] is not None
                                  and not use_tpu
                                  and batch_size == 1)

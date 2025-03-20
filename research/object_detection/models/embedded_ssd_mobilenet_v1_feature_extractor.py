@@ -113,7 +113,7 @@ class EmbeddedSSDMobileNetV1FeatureExtractor(ssd_meta_arch.SSDFeatureExtractor):
     Raises:
       ValueError: if image height or width are not 256 pixels.
     """
-    image_shape = preprocessed_inputs.get_shape()
+    image_shape = preprocessed_inputs.shape
     image_shape.assert_has_rank(4)
     image_height = image_shape[1].value
     image_width = image_shape[2].value

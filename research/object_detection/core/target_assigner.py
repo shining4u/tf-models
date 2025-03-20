@@ -215,7 +215,7 @@ class TargetAssigner(object):
       weights_multiple = tf.concat(
           [tf.ones_like(weights_shape), class_label_shape],
           axis=0)
-      for _ in range(len(cls_targets.get_shape()[1:])):
+      for _ in range(len(cls_targets.shape[1:])):
         cls_weights = tf.expand_dims(cls_weights, -1)
       cls_weights = tf.tile(cls_weights, weights_multiple)
 
@@ -240,7 +240,7 @@ class TargetAssigner(object):
     Returns:
       A tensor with the shape info filled in.
     """
-    target_shape = target.get_shape().as_list()
+    target_shape = target.shape
     target_shape[0] = num_anchors
     target.set_shape(target_shape)
     return target
@@ -266,8 +266,8 @@ class TargetAssigner(object):
           fields.BoxListFields.keypoints)
       matched_keypoints = match.gather_based_on_match(
           groundtruth_keypoints,
-          unmatched_value=tf.zeros(groundtruth_keypoints.get_shape()[1:]),
-          ignored_value=tf.zeros(groundtruth_keypoints.get_shape()[1:]))
+          unmatched_value=tf.zeros(groundtruth_keypoints.shape[1:]),
+          ignored_value=tf.zeros(groundtruth_keypoints.shape[1:]))
       matched_gt_boxlist.add_field(fields.BoxListFields.keypoints,
                                    matched_keypoints)
     matched_reg_targets = self._box_coder.encode(matched_gt_boxlist, anchors)
@@ -663,9 +663,9 @@ def batch_assign_confidences(target_assigner,
       gt_weights_batch):
 
     if (gt_class_confidences is not None and
-        len(gt_class_confidences.get_shape().as_list()) > 2):
+        len(gt_class_confidences.shape) > 2):
       raise ValueError('The shape of the class target is not supported. ',
-                       gt_class_confidences.get_shape())
+                       gt_class_confidences.shape)
 
     cls_targets, _, reg_targets, _, match = target_assigner.assign(
         anchors, gt_boxes, gt_class_confidences, unmatched_class_label,

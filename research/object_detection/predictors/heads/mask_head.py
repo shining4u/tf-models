@@ -142,7 +142,7 @@ class MaskRCNNMaskHead(head.Head):
       raise ValueError('Only num_predictions_per_location=1 is supported')
     num_conv_channels = self._mask_prediction_conv_depth
     if num_conv_channels == 0:
-      num_feature_channels = features.get_shape().as_list()[3]
+      num_feature_channels = features.shape[3]
       num_conv_channels = self._get_mask_predictor_conv_depth(
           num_feature_channels, self._num_classes)
     with slim.arg_scope(self._conv_hyperparams_fn()):
@@ -274,7 +274,7 @@ class ConvolutionalMaskHead(head.Head):
           normalizer_fn=None,
           normalizer_params=None,
           scope='MaskPredictor')
-    batch_size = features.get_shape().as_list()[0]
+    batch_size = features.shape[0]
     if batch_size is None:
       batch_size = tf.shape(features)[0]
     mask_predictions = tf.reshape(
@@ -350,7 +350,7 @@ class WeightSharedConvolutionalMaskHead(head.Head):
         activation_fn=None, stride=1, padding='SAME',
         normalizer_fn=None,
         scope='MaskPredictor')
-    batch_size = features.get_shape().as_list()[0]
+    batch_size = features.shape[0]
     if batch_size is None:
       batch_size = tf.shape(features)[0]
     mask_predictions = tf.reshape(

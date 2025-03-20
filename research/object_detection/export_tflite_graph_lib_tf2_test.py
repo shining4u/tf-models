@@ -58,7 +58,7 @@ class FakeModel(model.DetectionModel):
           [[[0.7, 0.6], [0.9, 0.0]]], tf.float32)
     with tf.control_dependencies([
         tf.convert_to_tensor(
-            prediction_tensors['image'].get_shape().as_list()[1:3])
+            prediction_tensors['image'].shape[1:3])
     ]):
       prediction_tensors['anchors'] = tf.constant(
           [[0.0, 0.0, 0.5, 0.5], [0.5, 0.5, 1.0, 1.0]], tf.float32)

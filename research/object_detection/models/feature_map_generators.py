@@ -431,7 +431,7 @@ def multi_resolution_feature_maps(feature_map_layout, depth_multiplier,
       feature_map_keys.append(from_layer)
     else:
       pre_layer = feature_maps[-1]
-      pre_layer_depth = pre_layer.get_shape().as_list()[3]
+      pre_layer_depth = pre_layer.shape[3]
       intermediate_layer = pre_layer
       if insert_1x1_conv:
         layer_name = '{}_1_Conv2d_{}_1x1_{}'.format(

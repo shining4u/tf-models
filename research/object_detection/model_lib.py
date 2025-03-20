@@ -491,7 +491,7 @@ def create_model_fn(detection_model_fn,
       # must be unpadded.
       boxes_shape = (
           labels[
-              fields.InputDataFields.groundtruth_boxes].get_shape().as_list())
+              fields.InputDataFields.groundtruth_boxes].shape)
       unpad_groundtruth_tensors = boxes_shape[1] is not None and not use_tpu
       labels = unstack_batch(
           labels, unpad_groundtruth_tensors=unpad_groundtruth_tensors)

@@ -109,8 +109,8 @@ def meshgrid(x, y):
   to the order of the indices they go into, done for compatibility with numpy.
   The output tensors have the same shapes.  Specifically:
 
-  xgrid.get_shape() = y.get_shape().concatenate(x.get_shape())
-  ygrid.get_shape() = y.get_shape().concatenate(x.get_shape())
+  xgrid.shape = y.shape.concatenate(x.shape)
+  ygrid.shape = y.shape.concatenate(x.shape)
 
   Args:
     x: A tensor of arbitrary shape and rank. xgrid will contain these values
@@ -128,7 +128,7 @@ def meshgrid(x, y):
 
     xgrid = tf.tile(tf.reshape(x, x_exp_shape), y_exp_shape)
     ygrid = tf.tile(tf.reshape(y, y_exp_shape), x_exp_shape)
-    new_shape = y.get_shape().concatenate(x.get_shape())
+    new_shape = y.shape.concatenate(x.shape)
     xgrid.set_shape(new_shape)
     ygrid.set_shape(new_shape)
 
@@ -177,7 +177,7 @@ def pad_to_multiple(tensor, multiple):
   if multiple == 1:
     return tensor
 
-  tensor_shape = tensor.get_shape()
+  tensor_shape = tensor.shape
   batch_size = static_shape.get_batch_size(tensor_shape)
   tensor_height = static_shape.get_height(tensor_shape)
   tensor_width = static_shape.get_width(tensor_shape)
@@ -259,7 +259,7 @@ def padded_one_hot_encoding(indices, depth, left_pad):
   if depth == 0:
     return None
 
-  rank = len(indices.get_shape().as_list())
+  rank = len(indices.shape)
   if rank != 1:
     raise ValueError('`indices` must have rank 1, but has rank=%s' % rank)
 
@@ -364,7 +364,7 @@ def retain_groundtruth(tensor_dict, valid_indices):
     ValueError: field fields.InputDataFields.groundtruth_boxes is
       not present in tensor_dict.
   """
-  input_shape = valid_indices.get_shape().as_list()
+  input_shape = valid_indices.shape
   if not (len(input_shape) == 1 or
           (len(input_shape) == 2 and input_shape[1] == 1)):
     raise ValueError('The shape of valid_indices is invalid.')
@@ -566,9 +566,9 @@ def normalize_to_target(inputs,
       length equal to the depth along the dimension to be normalized.
   """
   with tf.variable_scope(scope, 'NormalizeToTarget', [inputs]):
-    if not inputs.get_shape():
+    if not inputs.shape:
       raise ValueError('The input rank must be known.')
-    input_shape = inputs.get_shape().as_list()
+    input_shape = inputs.shape
     input_rank = len(input_shape)
     if dim < 0 or dim >= input_rank:
       raise ValueError(

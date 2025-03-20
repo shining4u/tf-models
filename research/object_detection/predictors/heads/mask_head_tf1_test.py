@@ -59,7 +59,7 @@ class MaskRCNNMaskHeadTest(test_case.TestCase):
         [64, 7, 7, 1024], minval=-10.0, maxval=10.0, dtype=tf.float32)
     prediction = mask_prediction_head.predict(
         features=roi_pooled_features, num_predictions_per_location=1)
-    self.assertAllEqual([64, 1, 20, 14, 14], prediction.get_shape().as_list())
+    self.assertAllEqual([64, 1, 20, 14, 14], prediction.shape)
 
   def test_prediction_size_with_convolve_then_upsample(self):
     mask_prediction_head = mask_head.MaskRCNNMaskHead(
@@ -75,7 +75,7 @@ class MaskRCNNMaskHeadTest(test_case.TestCase):
         [64, 14, 14, 1024], minval=-10.0, maxval=10.0, dtype=tf.float32)
     prediction = mask_prediction_head.predict(
         features=roi_pooled_features, num_predictions_per_location=1)
-    self.assertAllEqual([64, 1, 1, 28, 28], prediction.get_shape().as_list())
+    self.assertAllEqual([64, 1, 1, 28, 28], prediction.shape)
 
 
 @unittest.skipIf(tf_version.is_tf2(), 'Skipping TF1.X only test.')
@@ -114,7 +114,7 @@ class ConvolutionalMaskPredictorTest(test_case.TestCase):
         features=image_feature,
         num_predictions_per_location=1)
     self.assertAllEqual([64, 323, 20, 7, 7],
-                        mask_predictions.get_shape().as_list())
+                        mask_predictions.shape)
 
   def test_class_agnostic_prediction_size(self):
     mask_prediction_head = mask_head.ConvolutionalMaskHead(
@@ -132,7 +132,7 @@ class ConvolutionalMaskPredictorTest(test_case.TestCase):
         features=image_feature,
         num_predictions_per_location=1)
     self.assertAllEqual([64, 323, 1, 7, 7],
-                        mask_predictions.get_shape().as_list())
+                        mask_predictions.shape)
 
 
 @unittest.skipIf(tf_version.is_tf2(), 'Skipping TF1.X only test.')
@@ -168,7 +168,7 @@ class WeightSharedConvolutionalMaskPredictorTest(test_case.TestCase):
         features=image_feature,
         num_predictions_per_location=1)
     self.assertAllEqual([64, 323, 20, 7, 7],
-                        mask_predictions.get_shape().as_list())
+                        mask_predictions.shape)
 
   def test_class_agnostic_prediction_size(self):
     mask_prediction_head = (
@@ -183,7 +183,7 @@ class WeightSharedConvolutionalMaskPredictorTest(test_case.TestCase):
         features=image_feature,
         num_predictions_per_location=1)
     self.assertAllEqual([64, 323, 1, 7, 7],
-                        mask_predictions.get_shape().as_list())
+                        mask_predictions.shape)
 
 
 if __name__ == '__main__':
